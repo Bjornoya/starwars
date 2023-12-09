@@ -11,6 +11,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TablePaginationActions from './tablePaginationActions.cmp';
 import CustomTableRow from './tableRow.cmp';
+import TableSkeletonRow from './tableSkeletonRow.cmp';
 import { TColumn, TRow } from '../../../../config/interface';
 
 const ROWS_PER_PAGE = 10;
@@ -21,9 +22,10 @@ interface IProps {
   count: number;
   page: number;
   onPageChange: (newPage: number) => void;
+  isInitialLoading: boolean;
 }
 
-function CharactersTable({ columns, rows, count, page, onPageChange }: IProps) {
+function CharactersTable({ columns, rows, count, page, onPageChange, isInitialLoading }: IProps) {
   const navigate = useNavigate();
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * ROWS_PER_PAGE - count) : 0;
@@ -52,18 +54,24 @@ function CharactersTable({ columns, rows, count, page, onPageChange }: IProps) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <CustomTableRow
-              key={row.url}
-              row={row}
-              columns={columns}
-              onRowClick={() => onRowClick(row.url as string)}
-            />
-          ))}
-          {emptyRows > 0 && (
-            <TableRow style={{ height: 53 * emptyRows }}>
-              <TableCell colSpan={6} />
-            </TableRow>
+          {isInitialLoading ? (
+            <TableSkeletonRow rowsNum={10} />
+          ) : (
+            <>
+              {rows.map((row) => (
+                <CustomTableRow
+                  key={row.url}
+                  row={row}
+                  columns={columns}
+                  onRowClick={() => onRowClick(row.url as string)}
+                />
+              ))}
+              {emptyRows > 0 && (
+                <TableRow style={{ height: 53 * emptyRows }}>
+                  <TableCell colSpan={6} />
+                </TableRow>
+              )}
+            </>
           )}
         </TableBody>
         <TableFooter sx={{ '.MuiTablePagination-spacer': { display: 'none' } }}>
