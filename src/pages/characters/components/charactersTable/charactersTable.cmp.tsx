@@ -9,6 +9,7 @@ import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Box, LinearProgress } from '@mui/material';
 import TablePaginationActions from './tablePaginationActions.cmp';
 import CustomTableRow from './tableRow.cmp';
 import TableSkeletonRow from './tableSkeletonRow.cmp';
@@ -23,9 +24,10 @@ interface IProps {
   page: number;
   onPageChange: (newPage: number) => void;
   isInitialLoading: boolean;
+  isFetching: boolean;
 }
 
-function CharactersTable({ columns, rows, count, page, onPageChange, isInitialLoading }: IProps) {
+function CharactersTable({ columns, rows, count, page, onPageChange, isInitialLoading, isFetching }: IProps) {
   const navigate = useNavigate();
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * ROWS_PER_PAGE - count) : 0;
@@ -43,7 +45,12 @@ function CharactersTable({ columns, rows, count, page, onPageChange, isInitialLo
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+      <Table sx={{ minWidth: 500, position: 'relative' }} aria-label="custom pagination table">
+        {isFetching && !isInitialLoading && (
+          <Box sx={{ width: '100%', position: 'absolute' }}>
+            <LinearProgress />
+          </Box>
+        )}
         <TableHead>
           <TableRow>
             {columns.map((column) => (

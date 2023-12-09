@@ -12,7 +12,11 @@ function CharactersPage() {
   const currentPage = Number(page);
   const pageIndex = Number(page) - 1;
 
-  const { data = initialTableState, isInitialLoading } = useQuery({
+  const {
+    data = initialTableState,
+    isInitialLoading,
+    isFetching,
+  } = useQuery({
     queryKey: ['characters', [currentPage]],
     queryFn: () => getCharacters(currentPage),
     placeholderData: keepPreviousData,
@@ -30,6 +34,7 @@ function CharactersPage() {
         page={pageIndex}
         onPageChange={onPageChange}
         isInitialLoading={isInitialLoading}
+        isFetching={isFetching}
       />
     </Layout>
   );
