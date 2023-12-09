@@ -9,7 +9,7 @@ export type TRow = {
   [key: string]: string | number | { [key: string]: string | number };
 };
 
-export interface IPerson {
+export interface ICharacter {
   name: string;
   height: string;
   mass: string;
@@ -28,9 +28,12 @@ export interface IPerson {
   url: string;
 }
 
-export interface IPersons {
+interface INormalizedCharacter
+  extends Omit<ICharacter, 'homeworld' | 'films' | 'species' | 'vehicles' | 'starships' | 'created' | 'edited'> {}
+
+export interface ICharacters<T extends 'normalized' | 'default' = 'default'> {
   count: number;
   next: string | null;
   previous: string | null;
-  results: IPerson[];
+  results: T extends 'normalized' ? INormalizedCharacter[] : ICharacter[];
 }
