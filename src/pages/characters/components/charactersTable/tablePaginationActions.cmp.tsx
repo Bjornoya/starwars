@@ -5,24 +5,22 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 
-type TMouseEvent = React.MouseEvent<HTMLButtonElement>;
-
 interface IProps {
   count: number;
   page: number;
   rowsPerPage: number;
-  onPageChange: (event: TMouseEvent, newPage: number) => void;
+  onPageChange: (newPage: number) => void;
 }
 
-function TablePaginationActions({ count = 0, page = 0, rowsPerPage = 10, onPageChange }: IProps) {
-  const onFirstPageBtnClick = (event: TMouseEvent) => onPageChange(event, 0);
+function TablePaginationActions({ count, page, rowsPerPage, onPageChange }: IProps) {
+  const pageNumber = page + 1; // the page used here as index, that's why we need to increment it here
+  const onFirstPageBtnClick = () => onPageChange(1);
 
-  const onBackBtnClick = (event: TMouseEvent) => onPageChange(event, page - 1);
+  const onBackBtnClick = () => onPageChange(pageNumber - 1);
 
-  const onNextBtnClick = (event: TMouseEvent) => onPageChange(event, page + 1);
+  const onNextBtnClick = () => onPageChange(pageNumber + 1);
 
-  const onLastPageBtnClick = (event: TMouseEvent) =>
-    onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
+  const onLastPageBtnClick = () => onPageChange(Math.max(0, Math.ceil(count / rowsPerPage)));
 
   return (
     <Box sx={{ flexShrink: 0, ml: 2.5 }}>

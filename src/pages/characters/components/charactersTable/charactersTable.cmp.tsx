@@ -20,7 +20,7 @@ interface IProps {
   rows: TRow[];
   count: number;
   page: number;
-  onPageChange: (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => void;
+  onPageChange: (newPage: number) => void;
 }
 
 function CharactersTable({ columns, rows, count, page, onPageChange }: IProps) {

@@ -8,7 +8,7 @@ const CharactersPage = lazy(() => import('../pages/characters/characters.page'))
 function Routes() {
   return useRoutes([
     {
-      path: '/characters',
+      path: '/characters/:page?',
       element: <CharactersPage />,
     },
     { path: 'character/:id', element: <CharacterPage /> },
