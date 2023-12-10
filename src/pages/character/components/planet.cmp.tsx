@@ -27,6 +27,7 @@ function Planet({ url }: { url: string }) {
               readOnly: true,
             }}
             sx={{ margin: '12px' }}
+            key={key}
           />
         ))}
       </Box>
