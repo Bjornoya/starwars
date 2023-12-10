@@ -1,6 +1,6 @@
 import { API } from './settings';
 import { ICharacter, ICharacters } from './interface';
-import { mapCharacters, mapPlanet } from './utils';
+import { mapCharacter, mapCharacters, mapPlanet } from './utils';
 
 export const getByUrl = async (url: string) => {
   const response = await fetch(url);
@@ -18,7 +18,7 @@ export const getCharacter = async (id: string) => {
   const response = await fetch(`${API}/people/${id}`);
   const result: ICharacter = await response.json();
 
-  return result;
+  return mapCharacter(result);
 };
 
 export const getPlanet = async (url: string) => {
