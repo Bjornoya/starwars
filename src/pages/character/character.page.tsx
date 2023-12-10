@@ -9,6 +9,7 @@ import { getCharacter } from '../../config/api';
 import Planet from './components/planet.cmp';
 import Loader from '../../lib/loader/loader.cmp';
 import CharacterForm from './components/characterForm.cmp';
+import Films from './components/films.cmp';
 
 function CharacterPage() {
   const { id } = useParams();
@@ -28,6 +29,11 @@ function CharacterPage() {
             <Planet url={data.homeworld} />
           </Suspense>
         </Paper>
+      </Box>
+      <Box sx={{ width: 1500, height: 'auto' }}>
+        <Suspense fallback={<Loader />}>
+          <Films urls={data.films} />
+        </Suspense>
       </Box>
     </Layout>
   );
