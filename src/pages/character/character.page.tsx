@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
+import { Box, Paper } from '@mui/material';
 import Layout from '../../lib/layout/layout.cmp';
 import { initialCharacterState } from './character.utils';
 import { getCharacter } from '../../config/api';
 import Planet from './components/planet.cmp';
+import Loader from '../../lib/loader/loader.cmp';
 
 function CharacterPage() {
   const { id } = useParams();
@@ -16,8 +18,12 @@ function CharacterPage() {
   console.log(data);
   return (
     <Layout>
-      <div>Character PAGE</div>
-      <Planet url={data.homeworld} />
+      <Box>Character PAGE</Box>
+      <Paper sx={{ width: 600, height: 400 }}>
+        <Suspense fallback={<Loader />}>
+          <Planet url={data.homeworld} />
+        </Suspense>
+      </Paper>
     </Layout>
   );
 }
