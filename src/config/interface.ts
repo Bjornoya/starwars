@@ -56,3 +56,23 @@ export interface IPlanet {
 }
 
 export interface INormalizedPlanet extends Omit<ICharacter, 'residents' | 'films' | 'url'> {}
+
+export interface IFilm {
+  title: string;
+  episode_id: number;
+  opening_crawl: string;
+  director: string;
+  producer: string;
+  release_date: string;
+  characters: string[];
+  planets: string[];
+  starships: string[];
+  vehicles: string[];
+  species: string[];
+  created: string;
+  edited: string;
+  url: string;
+}
+
+export interface INormalizedFilm
+  extends Omit<IFilm, 'characters' | 'planets' | 'starships' | 'vehicles' | 'species' | 'created' | 'edited' | 'url'> {}

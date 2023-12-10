@@ -1,6 +1,6 @@
 import _omit from 'lodash.omit';
 import { format, parseISO } from 'date-fns';
-import { ICharacter, ICharacters, INormalizedPlanet, IPlanet } from './interface';
+import { ICharacter, ICharacters, IFilm, INormalizedFilm, INormalizedPlanet, IPlanet } from './interface';
 import { DATE_FORMAT } from './settings';
 
 export const formatDate = (isoDate: string) => format(parseISO(isoDate), DATE_FORMAT);
@@ -26,4 +26,8 @@ export const mapPlanet = (planet: IPlanet): INormalizedPlanet => {
     created: formatDate(planet.created),
     edited: formatDate(planet.edited),
   };
+};
+
+export const mapFilm = (planet: IFilm): INormalizedFilm => {
+  return _omit(planet, ['characters', 'planets', 'starships', 'vehicles', 'species', 'created', 'edited', 'url']);
 };

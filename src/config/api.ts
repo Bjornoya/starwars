@@ -1,6 +1,6 @@
 import { API } from './settings';
 import { ICharacter, ICharacters } from './interface';
-import { mapCharacter, mapCharacters, mapPlanet } from './utils';
+import { mapCharacter, mapCharacters, mapFilm, mapPlanet } from './utils';
 
 export const getByUrl = async (url: string) => {
   const response = await fetch(url);
@@ -25,4 +25,10 @@ export const getPlanet = async (url: string) => {
   const result = await getByUrl(url);
 
   return mapPlanet(result);
+};
+
+export const getFilm = async (url: string) => {
+  const result = await getByUrl(url);
+
+  return mapFilm(result);
 };
