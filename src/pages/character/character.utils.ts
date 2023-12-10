@@ -16,3 +16,17 @@ export const initialCharacterState = {
   edited: '',
   url: '',
 };
+
+export const PLANET_LABELS = {
+  name: 'Name',
+  rotation_period: 'Rotation Period',
+  orbital_period: 'Orbital Period',
+  diameter: 'Diameter',
+  climate: 'Climate',
+  gravity: 'Gravity',
+  terrain: 'Terrain',
+  surface_water: 'Surface Water',
+  population: 'Population',
+  created: 'Created',
+  edited: 'Edited',
+};
