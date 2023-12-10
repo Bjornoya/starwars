@@ -1,30 +1,55 @@
 import React, { useEffect, useState } from 'react';
+import { z } from 'zod';
 import { useForm, Controller } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import styled from '@emotion/styled';
 import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 import { useNotification } from '../../../context/notification.context';
 import { characterSchema } from '../../../config/schemas';
 
+const defaultValues = {
+  name: '',
+  height: '',
+  mass: '',
+  hair_color: '',
+  skin_color: '',
+  eye_color: '',
+  birth_year: '',
+  gender: '',
+};
+
+// I have weird bug with validation and zod resovler
+type TCharacter = z.infer<typeof characterSchema>;
+
 function CharacterForm({ initialState }) {
   const { notify } = useNotification();
+  const [state, setState] = useState(null);
   const [disabled, setDisabled] = useState(true);
-
-  console.log(initialState);
 
   const {
     formState: { errors },
     control,
     handleSubmit,
     reset,
-  } = useForm({ resolver: zodResolver(characterSchema), defaultValues: initialState });
+  } = useForm<TCharacter>({ defaultValues });
 
-  const onSubmit = (fieldValues): void => console.log(fieldValues);
+  const onSubmit = (fieldValues) => {
+    setState(fieldValues);
+    setDisabled(true);
+    reset(fieldValues);
+    notify.success('Form has sucessfully updated!');
+  };
+
+  const onCancel = () => {
+    reset(state);
+    setDisabled(true);
+  };
+
   const onError = (error): void => notify.error(error);
 
   useEffect(() => {
     // set values from the API, remove fields that are not related to the form
     const { created, edited, ...rest } = initialState;
+    setState(rest); // instead of an api call we use local state as a source of truth
     reset(rest);
   }, [initialState]);
 
@@ -50,20 +75,10 @@ function CharacterForm({ initialState }) {
           </Button>
         ) : (
           <Stack direction="row" spacing={2}>
-            <Button
-              sx={{ height: '32px', width: '96px' }}
-              onClick={() => setDisabled(true)}
-              variant="outlined"
-              size="small"
-            >
+            <Button sx={{ height: '32px', width: '96px' }} onClick={onCancel} variant="outlined" size="small">
               Cancel
             </Button>
-            <Button
-              sx={{ height: '32px', width: '96px' }}
-              onClick={() => setDisabled(true)}
-              variant="outlined"
-              size="small"
-            >
+            <Button sx={{ height: '32px', width: '96px' }} variant="outlined" size="small" type="submit">
               Save
             </Button>
           </Stack>
