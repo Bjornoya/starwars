@@ -10,19 +10,19 @@ function Planet({ url }: { url: string }) {
     queryFn: () => getPlanet(url),
   });
 
-  console.log(data);
   return (
     <>
       <Typography sx={{ padding: '12px' }} variant="h6" component="div">
         Homeworld
       </Typography>
-      <Box>
+      <Box sx={{ padding: '0 12px' }}>
         {Object.keys(data).map((key) => (
           <TextField
             id="outlined-read-only-input"
             label={PLANET_LABELS[key]}
             value={data[key]}
             variant="standard"
+            size="small"
             InputProps={{
               readOnly: true,
             }}
