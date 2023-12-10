@@ -12,7 +12,7 @@ function Planet({ url }: { url: string }) {
 
   return (
     <>
-      <Typography sx={{ padding: '12px' }} variant="h6" component="div">
+      <Typography sx={{ padding: '12px 0 0 24px' }} variant="h6" component="div">
         Homeworld
       </Typography>
       <Box sx={{ padding: '0 12px' }}>

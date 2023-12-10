@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react';
+import _omit from 'lodash.omit';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { Box, Paper } from '@mui/material';
@@ -7,6 +8,7 @@ import { initialCharacterState } from './character.utils';
 import { getCharacter } from '../../config/api';
 import Planet from './components/planet.cmp';
 import Loader from '../../lib/loader/loader.cmp';
+import CharacterForm from './components/characterForm.cmp';
 
 function CharacterPage() {
   const { id } = useParams();
@@ -15,15 +17,18 @@ function CharacterPage() {
     queryFn: () => getCharacter(id),
   });
 
-  console.log(data);
+  const formData = _omit(data, ['homeworld', 'films', 'species', 'vehicles', 'starships', 'url']);
+
   return (
     <Layout>
-      <Box>Character PAGE</Box>
-      <Paper sx={{ width: 600, height: 400 }}>
-        <Suspense fallback={<Loader />}>
-          <Planet url={data.homeworld} />
-        </Suspense>
-      </Paper>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: '24px 0' }}>
+        <CharacterForm initialState={formData} />
+        <Paper variant="outlined" sx={{ width: 700, height: 350 }}>
+          <Suspense fallback={<Loader />}>
+            <Planet url={data.homeworld} />
+          </Suspense>
+        </Paper>
+      </Box>
     </Layout>
   );
 }
