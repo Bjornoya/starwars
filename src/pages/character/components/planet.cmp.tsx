@@ -15,7 +15,7 @@ function Planet({ url }: { url: string }) {
       <Typography sx={{ padding: '12px 0 0 24px' }} variant="h6" component="div">
         Homeworld
       </Typography>
-      <Box sx={{ padding: '0 12px' }}>
+      <Box sx={{ padding: '0 12px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
         {Object.keys(data).map((key) => (
           <TextField
             id="outlined-read-only-input"
