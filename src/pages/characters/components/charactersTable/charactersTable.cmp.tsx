@@ -34,7 +34,7 @@ function CharactersTable({ columns, rows, count, page, onPageChange, isInitialLo
 
   // The API doesn't provide an id, so I parse it from the url
   const onRowClick = (url: string) => {
-    const parsedNumbers = url.match(/\d/);
+    const parsedNumbers = url.match(/\d+/);
     if (parsedNumbers) {
       const [id] = parsedNumbers;
       navigate(`/character/${id}`);
