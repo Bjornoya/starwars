@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import _omit from 'lodash.omit';
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { Box, Paper } from '@mui/material';
 import Layout from '../../lib/layout/layout.cmp';
@@ -13,7 +13,7 @@ import Films from './components/films.cmp';
 
 function CharacterPage() {
   const { id } = useParams();
-  const { data = initialCharacterState } = useQuery({
+  const { data = initialCharacterState } = useSuspenseQuery({
     queryKey: ['character', [id]],
     queryFn: () => getCharacter(id),
   });
