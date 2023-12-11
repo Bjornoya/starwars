@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { z } from 'zod';
 import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import styled from '@emotion/styled';
 import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 import { useNotification } from '../../../context/notification.context';
@@ -30,7 +31,10 @@ function CharacterForm({ initialState }) {
     control,
     handleSubmit,
     reset,
-  } = useForm<TCharacter>({ defaultValues });
+  } = useForm<TCharacter>({
+    resolver: zodResolver(characterSchema),
+    defaultValues,
+  });
 
   const onSubmit = (fieldValues) => {
     setState(fieldValues);
@@ -44,7 +48,7 @@ function CharacterForm({ initialState }) {
     setDisabled(true);
   };
 
-  const onError = (error): void => notify.error(error);
+  const onError = (error): void => notify.error('Something has happend...');
 
   useEffect(() => {
     // set values from the API, remove fields that are not related to the form
