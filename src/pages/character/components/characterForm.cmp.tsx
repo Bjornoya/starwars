@@ -36,7 +36,7 @@ function CharacterForm({ initialState }) {
     setState(fieldValues);
     setDisabled(true);
     reset(fieldValues);
-    notify.success('Form has sucessfully updated!');
+    notify.success('Form has been sucessfully updated!');
   };
 
   const onCancel = () => {
