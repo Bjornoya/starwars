@@ -55,7 +55,7 @@ export interface IPlanet {
   url: string;
 }
 
-export interface INormalizedPlanet extends Omit<ICharacter, 'residents' | 'films' | 'url'> {}
+export interface INormalizedPlanet extends Omit<IPlanet, 'residents' | 'films' | 'url'> {}
 
 export interface IFilm {
   title: string;
