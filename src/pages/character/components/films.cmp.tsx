@@ -22,7 +22,7 @@ function Films({ urls }: { urls: string[] }) {
       </Typography>
       <Stack direction="row" flexWrap="wrap" gap="24px">
         {userQueries.map((query) => (
-          <Film film={query.data} />
+          <Film film={query.data} key={query.data.episode_id} />
         ))}
       </Stack>
     </>
