@@ -75,7 +75,13 @@ function CharacterForm({ initialState }) {
           </Button>
         ) : (
           <Stack direction="row" spacing={2}>
-            <Button sx={{ height: '32px', width: '96px' }} onClick={onCancel} variant="outlined" size="small">
+            <Button
+              sx={{ height: '32px', width: '96px' }}
+              onClick={onCancel}
+              variant="outlined"
+              color="secondary"
+              size="small"
+            >
               Cancel
             </Button>
             <Button sx={{ height: '32px', width: '96px' }} variant="outlined" size="small" type="submit">
