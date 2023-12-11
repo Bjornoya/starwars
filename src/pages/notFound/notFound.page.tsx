@@ -4,7 +4,7 @@ import Layout from '../../lib/layout/layout.cmp';
 function NotFoundPage() {
   return (
     <Layout>
-      <div>NOT FOUND</div>
+      <div>NOT FOUND 404</div>
     </Layout>
   );
 }
